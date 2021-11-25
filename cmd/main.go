@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"os"
 
 	log "github.com/sirupsen/logrus"
 
@@ -25,14 +26,8 @@ func main() {
 	}
 
 	fileStorage := file.NewFileService()
-
-	validatorsService, err := validator.NewService(fileStorage)
-	if err != nil {
-		log.WithError(err).Fatal("failed to init validator service")
-	}
-
+	validatorsService := validator.NewService(fileStorage)
 	reportService := reporter.NewReportService()
-
 	assetfsProcessor := processor.NewService(fileStorage, validatorsService, reportService)
 
 	switch script {
@@ -54,7 +49,12 @@ func main() {
 			"warnings":    report.Warnings,
 			"fixed":       report.Fixed,
 		}).Info(key)
+
+		if report.Errors > 0 {
+			os.Exit(1)
+		}
 	}
+
 }
 
 func setup() {
