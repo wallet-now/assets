@@ -89,6 +89,10 @@
          "coinId": "kavaevm"
       },
       {
+         "chain": "66",
+         "coinId": "okx"
+      },
+      {
          "chain": "1101",
          "coinId": "polygonzkevm"
       },
@@ -131,6 +135,10 @@
       {
          "chain": "43113",
          "coinId": "avalanchecfuji"
+      },
+      {
+         "chain": "5601",
+         "coinId": "gbnb"
       }
    ]
 }
